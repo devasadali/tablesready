@@ -1,0 +1,11 @@
+ul.text-center.list-unstyled.list-group
+  li.list-group-item.active
+    strong = plan.name
+  li.list-group-item
+    = "#{number_to_currency(plan.price)}/#{plan.interval}"
+  li.list-group-item
+    = plan.features
+  li.list-group-item.clear
+    .pre-loader.p-xs.hide
+      = image_tag "loader.gif"
+    = subscription_lnk(plan)

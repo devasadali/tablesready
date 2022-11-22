@@ -1,0 +1,12 @@
+.footer
+  .pull-right
+    | Ready Text
+  div
+    strong
+      = "Copyright "
+    | Ready Text &copy; 2017
+
+- if session[:impersonate_user]
+  .impersonate-notification.alert.alert-warning
+    | You are signed in as <strong>#{current_user.name}</strong>. 
+    = link_to "Back to admin", stop_impersonating_users_path, method: :post

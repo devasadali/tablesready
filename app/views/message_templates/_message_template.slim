@@ -1,0 +1,25 @@
+.col-lg-3.message_template id="message_template_#{message_template.id}" template_id="#{message_template.id}" class="#{'not_approved' unless message_template.approved?}"
+  ul.list-unstyled.list-group
+    li.list-group-item.active
+      strong
+        - if message_template.approved?
+          = message_template.name
+        - else
+          = message_template.name + ' (Pending approval)'
+      a.pull-right.dropdown-toggle data-toggle="dropdown" href="#" aria-expanded="true" style="color:#fff;"
+        i.fa.fa-cog
+      ul class="dropdown-menu dropdown-user"
+        li
+          = link_to "Edit",edit_message_template_path(message_template),remote: true,style: "background: #f5f5f5;color:#262626;"
+        li
+          = link_to "Remove",message_template_path(message_template),method: :delete,remote: true,style: "background: #f5f5f5;color:#262626;",data: {confirm: 'Are you sure to remove this template?'}
+    li.list-group-item
+      | Sort Order:  #{message_template.sort_order}
+    li.list-group-item
+      - if message_template.sort_order == 1
+        | Message will be sent immediately.
+      - else
+        | Message will be sent in #{message_template.next_delay} minutes after previous message
+    li.list-group-item
+      = message_template.template
+    .clear

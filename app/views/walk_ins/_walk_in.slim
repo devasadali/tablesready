@@ -1,0 +1,60 @@
+tr id="booking_#{booking.id}"
+  td.booking_time time="#{Date.today} #{booking.booking_time.strftime("%I:%M %p")}"
+    - unless booking.is_a?(WalkIn)
+      = booking.booking_date.strftime("%a, %b %d")
+      br
+      = booking.booking_time.strftime("%I:%M %p")
+      br
+    / span.counter
+  td
+    span = booking.wait_in_minutes
+  td
+    span = booking.party_name
+    br
+    span = booking.phone
+  td = booking.size
+  td
+    - if booking.is_a?(WalkIn)
+      span.badge.p-xxs.m-r-xs #{booking.type}
+    - else
+      span.badge.badge-primary.p-xxs.m-r-xs #{booking.type}
+    span = booking.notes
+    - if booking.is_a?(WalkIn)
+      br
+      span
+        = "Arrived #{time_ago_in_words(booking.created_at)} ago"
+  td
+    - if booking.checkin
+      - if booking.sequence_in_progress
+        = link_to stop_sequence_walk_in_path(booking),method: :post,remote: true,class: "btn btn-danger" do
+          i.fa.fa-bell.m-r-xs
+          span Stop
+        p
+          - if booking.message_started_at
+            = "Message sequence started #{time_ago_in_words(booking.message_started_at)} ago"
+          - else
+            = "Message sequence is in progress"
+      - elsif booking.message_completed_at
+        = link_to send_message_walk_in_path(booking),method: :post,class: "btn btn-primary" do
+          i.fa.fa-bell.m-r-xs
+          span Text Again
+        p
+          = "Text sequence completed #{time_ago_in_words(booking.message_completed_at)} ago"
+      - else
+        = link_to send_message_walk_in_path(booking),method: :post,class: "btn btn-primary" do
+          i.fa.fa-bell.m-r-xs
+          span Text
+    - else
+      = link_to mark_checkin_walk_in_path(booking),method: :post,remote:true,class: "btn btn-primary" do
+        i.fa.fa-play.m-r-xs
+        span Check In
+  td
+    = booking_seated_lnk(booking)
+    = booking_no_show_lnk(booking)
+    = link_to walk_in_path(booking),method: :delete,remote: true,data: {confirm: "Are you sure to remove this booking?"},class: "btn btn-default m-r-xs" do
+      i.fa.fa-trash.m-r-xs
+      span Cancel
+    = link_to edit_walk_in_path(booking),remote: true,class: "btn btn-default m-r-xs" do
+      i.fa.fa-pencil-square-o.m-r-xs
+      span Edit
+    

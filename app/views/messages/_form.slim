@@ -1,0 +1,10 @@
+= simple_form_for(@message) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :restaurant_id
+    = f.input :template
+    = f.input :recipent
+
+  .form-actions
+    = f.button :submit

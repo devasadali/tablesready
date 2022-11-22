@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    meta charset="utf-8" /
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+    title Ready Text
+    /! Main css styles
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    /! Main javascript files
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+    script src="https://js.stripe.com/v2/"
+    javascript:
+      Stripe.setPublishableKey("#{ENV['STRIPE_PUBLISHABLE_KEY']}")
+
+    = yield :head
+    = action_cable_meta_tag
+    = Gon::Base.render_data
+  body
+    /! Skin configuration box
+    /= render 'layouts/skinconfig'
+    /! Wrapper
+    #wrapper class="#{params[:controller]}.#{params[:action]}"
+      /! Navigation
+      = render 'layouts/navigation'
+      /! Page wraper
+      #page-wrapper.gray-bg class="#{@extra_class}" 
+        /! Page wrapper
+        = render 'layouts/topnavbar' if user_signed_in?
+        == render 'layouts/messages'
+        /! Main view
+        = yield
+        /! Footer
+        = render 'layouts/footer'
+      /! End page wrapper
+    .notification_modal
+      = render "shared/message_notification_modal"
+    .trial_extend_modal
+      = render "shared/trial_extend_request_modal"
+    = include_rails_script

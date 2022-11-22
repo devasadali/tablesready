@@ -1,0 +1,2 @@
+$(".message_templates #message_template_<%= @message_template.id%>").replaceWith("<%= j(render partial: 'message_template',locals: {message_template: @message_template})%>");
+$("#message_template_form_modal").modal("hide");

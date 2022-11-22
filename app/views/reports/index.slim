@@ -1,0 +1,112 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2 Reports
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li.active
+        strong Reports
+  .col-lg-2
+
+/ walkin subscriptions
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Reports
+        /.pull-right
+          = link_to customer_csv_reports_path(format: :csv),class: "btn btn-primary btn-xl" do
+            span.m-r-xs Customer CSV List
+            i.fa.fa-arrow-down
+      .ibox-content
+        .row
+          .col-lg-12
+            h3 Select Reporting Period
+        .row
+           = simple_form_for :reports,url: reports_path,html:{role: 'form',id: "reports_form",class: "form-horizontal",method: :get} do |f|
+            .form-group
+              label.col-sm-2.control-label From
+              .col-sm-6
+                = f.text_field :from,class: "form-control",value: @from.strftime("%m/%d/%Y")
+            .form-group
+              label.col-sm-2.control-label To
+              .col-sm-6
+                = f.text_field :to,class: "form-control",value: @to.strftime("%m/%d/%Y")
+            .form-group
+              .col-sm-4.col-sm-offset-2
+                button.btn.btn-primary.submit_btn.m-l-sm type="submit"  Get Reports
+        .row
+          .col-sm-8
+            h3 Reports from #{@from} - #{@to}
+          .col-sm-4
+            .pull-right
+              - if params['reports']
+                = link_to booking_csv_reports_path(format: :csv, 'reports[from]': params['reports']['from'], 'reports[to]': params['reports']['to']),class: "btn btn-primary btn-xl" do
+                  span.m-r-xs Booking CSV List
+                  i.fa.fa-arrow-down
+              - else
+                = link_to booking_csv_reports_path(format: :csv),class: "btn btn-primary btn-xl" do
+                  span.m-r-xs Booking CSV List
+                  i.fa.fa-arrow-down
+        .row
+          .col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                h5 Total Bookings
+              .ibox-content
+                h1.no-margins #{number_with_delimiter @bookings_count}
+                small Total Bookings
+          .col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                h5 New Bookings
+              .ibox-content
+                h1.no-margins #{number_with_delimiter @new_bookings_count}
+                small New Bookings
+          .col-lg-3
+           .ibox.float-e-margins
+              .ibox-title
+                h5 Seated Bookings
+              .ibox-content
+                h1.no-margins #{number_with_delimiter @seated_count}
+                small Seated Bookings
+          .col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                h5 No Show Bookings
+              .ibox-content
+                h1.no-margins #{number_with_delimiter @no_show_count}
+                small No Show Bookings
+        br
+        br
+        .row
+          .col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                h5 Cancelled Bookings
+              .ibox-content
+                h1.no-margins #{number_with_delimiter @cancelled_count}
+                small Cancelled Bookings
+          .col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                h5 Longest Wait Time
+              .ibox-content
+                h2.no-margins #{formatted_duration(@longest_wait_time)}
+                small Longest wait time
+          .col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                h5 Average Wait Time
+              .ibox-content
+                h2.no-margins #{formatted_duration(@avg_wait_time)}
+                small Avg. wait time
+        br
+        br
+        .row
+          .col-lg-12
+            .panel.panel-default
+              .panel-heading
+                | Number of bookings per hour Activity
+              .panel-body
+                canvas id="lineChart" height="114"

@@ -1,0 +1,15 @@
+.middle-box.loginscreen.animated.fadeInDown.text-center
+  div
+    div
+      h1.logo-name RT
+    h3 Change your password
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put,id: "edit_password_form",class: "m-t" }) do |f|
+      = f.hidden_field :reset_password_token
+      .text-left.text-danger
+        = devise_error_messages!
+      .form-group.text-left
+        = f.password_field :password,placeholder: "New password", autocomplete: 'off', class: 'form-control'
+      .form-group.text-left
+        = f.password_field :password_confirmation,placeholder: "Confirm new password", autocomplete: 'off', class: 'form-control'
+      div
+        = f.submit 'Change my Password', class: 'btn btn-primary block full-width m-b'

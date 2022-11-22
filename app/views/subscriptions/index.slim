@@ -1,0 +1,112 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2 Subscriptions
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li.active
+        strong Subscriptions
+  .col-lg-2
+- unless current_user.stripe_customer_id.blank?
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          h5 Update Credit Card
+        .ibox-content
+          - if @card
+            = "Last Four of Your Card: <strong>#{@card.last4}</strong>".html_safe
+          br
+          br
+          = link_to "Update Credit Card", update_payment_info_subscriptions_path, class: "btn btn-primary btn-xl"
+
+/ walkin subscriptions
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Walkin Subscriptions
+      .ibox-content
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th Plan
+                th Amount
+                th Status
+                th Started At
+                th Expiry
+                th Action
+            tbody
+              - @walkin_subscriptions.each do |subscription|
+                - plan = subscription.plan
+                tr
+                  td
+                    = plan.name
+                  td
+                    span.pie = number_to_currency(plan.price)
+                  td = subscription.status
+                  td = subscription.started_at.strftime("%b %d, %Y")
+                  td
+                    - if subscription.expired?
+                      .text-danger
+                        strong = subscription.expired_at.strftime("%b %d, %Y")
+                    - else 
+                      = subscription.expired_at.strftime("%b %d, %Y")
+                  td
+                    - if @is_trial
+                      = link_to "UPGRADE","/pricing",class: "btn btn-primary btn-xl"
+                    - else
+                      = link_to subscription_path(subscription),method: :delete,data: {confirm: "Are you sure to cancel your subscription?"} do
+                        i.fa.fa-times.text-navy
+                        = " Cancel"
+/ marketing subscriptions
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Marketing Addons
+      .ibox-content
+        - if @marketing_subscriptions.any?
+          .row
+            .col.lg-2
+            .col-lg-10
+              = link_to "More Addons","/pricing",class: "btn btn-primary btn-xl"
+        .table-responsive
+          table.table.table-striped
+            - if @marketing_subscriptions.any?
+              thead
+                tr
+                  th Plan
+                  th Amount
+                  th Status
+                  th Started At
+                  th Expiry
+                  th Action
+              tbody
+                - @marketing_subscriptions.each do |subscription|
+                  - plan = subscription.plan
+                  tr
+                    td
+                      = plan.name
+                    td
+                      span.pie = number_to_currency(plan.price)
+                    td = subscription.status
+                    td = subscription.started_at.strftime("%b %d, %Y")
+                    td
+                      - if subscription.expired?
+                        .text-danger
+                          strong = subscription.expired_at.strftime("%b %d, %Y")
+                      - else 
+                        = subscription.expired_at.strftime("%b %d, %Y")
+                    td
+                      = link_to subscription_path(subscription),method: :delete,data: {confirm: "Are you sure to cancel your subscription?"} do
+                        i.fa.fa-times.text-navy
+                        = " Cancel"
+            - else
+              tbody
+                tr
+                  td You have not added any addon.
+                tr
+                  td
+                    = link_to "New Addon","/pricing",class: "btn btn-primary btn-xl"

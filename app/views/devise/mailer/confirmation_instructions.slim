@@ -1,0 +1,16 @@
+p
+  | #{@resource.first_name},
+p
+  | Congratulations on your decision to take control of your host/hostess stand and make sure your guests are getting top notch service.
+p
+  | Please click here to confirm your account:
+p
+  = link_to 'Confirm My Account', confirmation_url(@resource, confirmation_token: @token)
+p
+  | Please see the third video down on this page #{link_to "http://ready-text.com/training/","http://ready-text.com/training/"} for your quick and easy setup.
+p
+  | Thanks again and enjoy!
+
+p
+  | Mike
+

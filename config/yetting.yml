@@ -1,0 +1,17 @@
+defaults: &defaults
+  subscription_types:
+    trial: "Trial"
+    walkin: "Walkin"
+    marketing: "Marketing"
+  plan_types:
+    trial: "Trial"
+    walkin: "Walkin"
+    marketing: "Marketing"
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,0 +1,77 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2 Wait Lists
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li.active
+        strong WaitList
+  .col-lg-2
+
+/ Add New Walkins
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Add New Walk-In Party
+      .ibox-content
+        .table-responsive.booking_form_table
+          = simple_form_for @walk_in, html: { role: 'form',id: "walk_in_form",class: "form-horizontal",remote: true,autocomplete: "off"} do |f|
+            = hidden_field_tag :authenticity_token, form_authenticity_token, id: :form_token
+            = f.hidden_field :restaurant_id
+            table.table.table-striped
+              tbody
+                tr
+                  td
+                    label Wait(min)
+                    = f.number_field :wait_in_minutes,value: 1,class: "form-control",id: "time_in_minutes",min: 0
+                  td
+                    label.hidden-xs Party Name
+                    label.visible-xs Name
+                    = f.text_field :party_name,class: "form-control"
+                  td 
+                    label Size
+                    = f.number_field :size,min: 0,class: "form-control"
+                  td
+                    label Phone
+                    = f.text_field :phone, class: "form-control",id: "walk_in_phone", type: "tel"
+                  td
+                    label Notes
+                    = f.text_field :notes, class:"form-control"
+                  td
+                    = button_tag class: "btn btn-primary btn-xl m-r-sm submit_btn m-t-md" do
+                      i.fa.fa-plus.m-r-xs
+                      span Add
+                  td
+                    = link_to "javascript:void(0);",class: "btn btn-default btn-xl reset_form_btn m-t-md",form_id: "walk_in_form" do
+                      i.fa.fa-repeat.m-r-xs
+                      span Reset
+                    
+/ walkin subscriptions
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 
+          | Upcoming Parties
+          span #{@walk_ins.size > 0 ? " (#{@walk_ins.size})" : ''}
+      .ibox-content
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th Time
+                th Wait(min)
+                th Guest
+                th Size
+                th Notes
+                th Page
+                th Mark
+            tbody.walk_ins
+              - @walk_ins.each do |booking|
+                = render partial: "walk_in",locals: {booking: booking}
+            tbody.reservations
+              - @reservations.each do |booking|
+                = render partial: "walk_in",locals: {booking: booking}
+
+.modal-section

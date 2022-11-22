@@ -1,0 +1,17 @@
+.row.border-bottom
+  nav.navbar.navbar-static-top role="navigation" style=("margin-bottom: 0") 
+    .navbar-header
+      a.navbar-minimalize.minimalize-styl-2.btn.btn-primary href="#" 
+        i.fa.fa-bars
+      /form.navbar-form-custom action="" method="post" role="search" 
+        .form-group
+          input#top-search.form-control name="top-search" placeholder=("Search for something...") type="text" /
+    ul.nav.navbar-top-links.navbar-right
+      li
+        span.m-r-sm.text-muted.welcome-message Welcome #{current_user.name.try(:titleize)}
+      li
+        = link_to destroy_user_session_path, :method=>'delete' do
+          i.fa.fa-sign-out
+          | Signout
+
+  = main_subscription_link

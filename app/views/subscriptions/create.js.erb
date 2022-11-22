@@ -1,0 +1,12 @@
+<% sub_title = @plan.walkin? ? "Subscription" : "Addon"%>
+<% title = @response[:error] ? "#{sub_title} Failed" : "#{sub_title} Success" %>
+$(".modal-section").html("<%= j(render partial: 'shared/subscription_success_modal',locals: {response: @response,plan: @plan,title: title,msg: @response[:message]})%>")
+<% unless @response[:error] %>
+  <% @walkin_plans.each do |plan| %>
+    $(".plan-content[plan_id=<%= plan.id %>]").html("<%= j(render partial: 'shared/plan',locals: {plan: plan})%>");
+  <% end %>
+  <% @marketing_plans.each do |plan| %>
+    $(".plan-content[plan_id=<%= plan.id %>]").html("<%= j(render partial: 'shared/plan',locals: {plan: plan})%>");
+  <% end %>
+<% end %>
+$("#subscription_success_modal").modal("show");

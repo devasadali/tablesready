@@ -1,0 +1,38 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2 Reservations
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li
+        = link_to "Reservations",reservations_path
+      li
+        strong Import
+  .col-lg-2
+
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 
+          | Import From CSV
+          = link_to reservations_path do
+            small = " Back to Reservations"
+      .ibox-content
+        = simple_form_for :reservation,  url: upload_reservations_path,html: {multipart:true,role: 'form',id: "import_csv_form",class: "form-horizontal",autocomplete: "off"} do |f|
+          = hidden_field_tag :authenticity_token, form_authenticity_token, id: :form_token
+          .form-group
+            label.col-sm-2.control-label Choose CSV File
+            .col-sm-10
+              = file_field_tag :csv_file,accept: 'text/csv'
+          .form-group
+            label.col-sm-2.control-label Expected CSV format
+            .col-sm-10
+              p.m-t-xs
+                | Reservation time (DD/MM/YYYY hh:mm AM/PM), Party Name, Size, Phone, Notes
+                = link_to "#{root_url}/SampleCSV.csv" do
+                  strong = " Click to download sample CSV file..."
+          br
+          .form-group
+            .col-sm-4.col-sm-offset-2
+              button.btn.btn-primary.submit.m-l-sm type="submit" UPLOAD

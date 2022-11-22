@@ -1,0 +1,13 @@
+p
+  | Hello Admin,
+p
+  - if @is_new
+    | #{@user.name} with email #{@user.email} has created new message template. The content is below.
+  - else
+    | #{@user.name} with email #{@user.email} has updated a message template. The content is below.
+p
+  | #{@message_template.template}
+p
+  | Follow the following link to approve it.
+p
+  = link_to "Approve Message Template", admin_message_template_url(@message_template)

@@ -1,0 +1,13 @@
+#support_success_modal.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content.animated.fadeIn
+      .modal-header
+        button.close data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+          span.sr-only Close
+        h4.modal-title Notification
+      .modal-body
+        p
+          | Thanks, your message has been received and we will respond promptly. Click #{link_to "here",root_path} to go on main dashboard.
+      .modal-footer
+        button.btn.btn-white data-dismiss="modal" type="button"  Close

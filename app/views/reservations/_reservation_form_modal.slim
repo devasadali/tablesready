@@ -1,0 +1,38 @@
+#reservation_form_modal.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content.animated.fadeIn
+      .modal-header
+        button.close data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+        h4.modal-title Edit Party
+      = simple_form_for reservation, html: { method: :put,role: 'form',id: "reservation_update_form",class: "form-horizontal",remote: true,autocomplete: "off"} do |f|
+        .modal-body
+          = hidden_field_tag :authenticity_token, form_authenticity_token, id: :form_token
+          = f.hidden_field :restaurant_id
+          .form-group
+            label.col-sm-3.control-label Date
+            .col-sm-9
+              = f.text_field :booking_date,id: "edit_reservation_datepicker",class: "form-control"
+          .form-group
+            label.col-sm-3.control-label Time
+            .col-sm-9
+              = f.text_field :booking_time,value: reservation.booking_time.strftime("%I:%M %p"),id: "edit_reservation_timepicker",class: "form-control"
+          .form-group
+            label.col-sm-3.control-label Party Name
+            .col-sm-9
+              = f.text_field :party_name,class: 'form-control'
+          .form-group
+            label.col-sm-3.control-label Size
+            .col-sm-9
+              = f.number_field :size,min: 0,class: 'form-control'
+          .form-group
+            label.col-sm-3.control-label Phone (10 digits)
+            .col-sm-9
+              = f.text_field :phone,class: 'form-control',id: "edit_reservation_phone"
+          .form-group
+            label.col-sm-3.control-label Notes
+            .col-sm-9
+              = f.text_field :notes,class: 'form-control'
+        .modal-footer
+          button.btn.btn-white data-dismiss="modal" type="button"  Cancel
+          button.btn.btn-primary  type="submit"  Save

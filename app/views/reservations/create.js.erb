@@ -1,0 +1,8 @@
+$(".reservations").append("<%= j(render partial: 'reservation',locals: {booking: @reservation})%>");
+// trigger click to reset form
+$(".submit_btn").attr("disabled",false)
+booking_time = $("#reservation_booking_time").val();
+$(".reset_form_btn").click();
+$("#reservation_booking_time").val(booking_time);
+
+window.location.reload()

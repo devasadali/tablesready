@@ -1,0 +1,41 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2
+      strong Support
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li.active
+        strong Support
+  .col-lg-2
+
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Contact us
+      .ibox-content
+        .row
+          = simple_form_for :support, html: { url: "/support",role: 'form',id: "support_form",class: "form-horizontal",remote: true,autocomplete: "off",method: :post,remote: true} do |f|
+            .form-group
+              label.col-sm-2.control-label Name
+              .col-sm-10
+                input autocomplete="off" type="text" name="name" class="form-control" placeholder="Your Name"
+            .hr-line-dashed
+            .form-group
+              label.col-sm-2.control-label Email
+              .col-sm-10
+                input autocomplete="off" type="email" name="email" class="form-control" placeholder="Your Email"
+            .hr-line-dashed
+            .form-group
+              label.col-sm-2.control-label Detail
+              .col-sm-10
+                textarea rows="5" autocomplete="off" type="textarea" name="body" class="form-control" placeholder="Enter details here"
+            .hr-line-dashed
+            
+            .form-group
+              .col-sm-4.col-sm-offset-2
+                button.btn.btn-primary.submit.m-l-sm type="submit"  Submit
+
+.thanks_modal
+  = render partial: "shared/support_success_modal"

@@ -1,0 +1,59 @@
+@import "intlTelInput";
+/* Only demo */
+@media (max-width: 1000px) {
+  .welcome-message {
+    display: none;
+  }
+}
+
+/* FONT SIZES */
+.font-36{
+  font-size: 36px;
+}
+.font-32{
+  font-size: 32px;
+}
+.font-16{
+  font-size: 16px;
+}
+.font-12{
+  font-size: 12px;
+}
+.clear{
+  clear: both;
+}
+
+.booking_form_table{
+  min-height: 170px;
+  .country-list{
+    max-height: 100px;
+  }
+}
+
+.invalid{
+  border: 1px solid #ed5565;
+}
+label{
+  &.invalid{
+    border: none;
+    color: #ed5565;
+  }
+}
+
+/* for datepicker in modal*/
+.ui-widget.ui-widget-content{
+  z-index: 9999 !important;
+}
+
+/*Override the path to flags.png for intlTelInput*/
+.iti-flag {background-image: asset-url("flags.png");}
+.selected-flag{
+  height: 34px !important;
+}
+.intl-tel-input{
+  width: 100%;
+}
+  
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .iti-flag {background-image: asset-url("flags@2x.png");}
+}

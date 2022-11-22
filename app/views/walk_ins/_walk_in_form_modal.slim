@@ -1,0 +1,34 @@
+#walk_in_form_modal.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content.animated.fadeIn
+      .modal-header
+        button.close data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+        h4.modal-title Edit Party
+      = simple_form_for walk_in, html: { method: :put,role: 'form',id: "walk_in_update_form",class: "form-horizontal",remote: true,autocomplete: "off"} do |f|
+        .modal-body
+          = hidden_field_tag :from,"Walkin"
+          = hidden_field_tag :authenticity_token, form_authenticity_token, id: :form_token
+          = f.hidden_field :restaurant_id
+          = f.hidden_field :booking_date
+          = f.hidden_field :booking_time
+          = f.hidden_field :wait_in_minutes
+          .form-group
+            label.col-sm-3.control-label Party Name
+            .col-sm-9
+              = f.text_field :party_name,class: 'form-control'
+          .form-group
+            label.col-sm-3.control-label Size
+            .col-sm-9
+              = f.number_field :size,min: 0,class: 'form-control'
+          .form-group
+            label.col-sm-3.control-label Phone (10 digits)
+            .col-sm-9
+              = f.text_field :phone,class: 'form-control',id: "edit_walk_in_phone"
+          .form-group
+            label.col-sm-3.control-label Notes
+            .col-sm-9
+              = f.text_field :notes,class: 'form-control'
+        .modal-footer
+          button.btn.btn-white data-dismiss="modal" type="button"  Cancel
+          button.btn.btn-primary  type="submit"  Save

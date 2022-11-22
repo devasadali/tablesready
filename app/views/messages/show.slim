@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Restaurant:
+  = @message.restaurant_id
+p
+  strong Template:
+  = @message.template
+p
+  strong Recipent:
+  = @message.recipent
+
+= link_to 'Edit', edit_message_path(@message)
+'  |
+= link_to 'Back', messages_path

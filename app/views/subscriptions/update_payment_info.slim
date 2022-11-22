@@ -1,0 +1,95 @@
+- content_for :head do
+  = stripe_javascript_tag
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title.panel-title
+        h5
+          | Update Your Card
+        /.pull-right
+          span.m-l-xs
+            i class="fa fa-cc-amex text-success"
+          span.m-l-xs
+            i class="fa fa-cc-mastercard text-warning"
+          span.m-l-xs
+            i class="fa fa-cc-discover text-danger"
+      .ibox-content
+        = simple_form_for update_payment_info_subscriptions_path, html: { url: create_customer_subscriptions_path,role: 'form',id: "credit_card_form",class: "form-horizontal",autocomplete: "off"} do |f|
+          = hidden_field_tag :authenticity_token, form_authenticity_token, id: :form_token
+          .alert.payment-errors
+          .form-group
+            label.col-sm-2.control-label Name
+            .col-sm-10
+              input autocomplete="off" type="text" name="name" data-stripe="name" class="form-control" placeholder="Name on card"
+          .hr-line-dashed
+          .form-group.m-b-none
+            .col-sm-2
+            .col-sm-10
+              p.font-32
+                span.m-l-xs
+                  i class="fa fa-cc-visa text-primary"
+                span.m-l-xs
+                  i class="fa fa-cc-amex text-success"
+                span.m-l-xs
+                  i class="fa fa-cc-mastercard text-warning"
+                span.m-l-xs
+                  i class="fa fa-cc-discover text-danger"
+          .form-group
+            label.col-sm-2.control-label Card Number
+            .col-sm-10
+              input autocomplete="off" type="text" name="number" data-stripe="number" size="20" class="form-control credit_card_number" placeholder="Card number"
+          .hr-line-dashed
+          .form-group
+            label.col-sm-2.control-label CVC
+            .col-sm-10
+              input autocomplete="off" placeholder="CVC" name="cvc" data-stripe="cvc" size="4" class="form-control modal-input" type="text"
+          .hr-line-dashed
+          .form-group
+            label.col-sm-2.control-label Expiry
+            .col-sm-5
+              select id="exp_month" name="exp_month" data-stripe="exp_month" class="form-control m-b"
+                option value="" disabled="disabled" selected='selected'  Month
+                option value="1" 01
+                option value="2" 02
+                option value="3" 03
+                option value="4" 04
+                option value="5" 05
+                option value="6" 06
+                option value="7" 07
+                option value="8" 08
+                option value="9" 09
+                option value="10" 10
+                option value="11" 11
+                option value="12" 12
+            .col-sm-5
+              - year = Date.today.year
+              select.form-control id="exp_year" placeholder="Year" name="exp_year" data-stripe="exp_year"
+                option value="" disabled="disabled" selected="selected" Year
+                - (0..9).each do |i|
+                  option value="#{year+i}" #{year+i}
+          .hr-line-dashed
+          .form-group
+            label.col-sm-2.control-label Address
+            .col-sm-10
+              input autocomplete="off" type="text" id="billing_address" name="address_line1" data-stripe="address_line1" class="form-control" placeholder="Address"
+          .hr-line-dashed
+          .form-group
+            label.col-sm-2.control-label City/Post Code
+            .col-sm-5
+              input autocomplete="off" placeholder="City/Town" name="address_city" data-stripe="address_city" class="form-control" type="text"
+            .col-sm-5
+              input autocomplete="off" placeholder="Postcode" name="address_zip" data-stripe="address_zip"class="form-control" type="text"
+          .hr-line-dashed
+          .form-group
+            label.col-sm-2.control-label Country
+            .col-sm-10
+              = country_select("address", "country",{selected: 'US'},{class: "form-control",data:{stripe: "address_country"}})
+          .hr-line-dashed
+          .form-group
+            .col-sm-4.col-sm-offset-2
+              .pre-loader.hide
+                = image_tag "loader.gif"
+          .form-group
+            .col-sm-4.col-sm-offset-2
+              = link_to "Cancel",root_path,class: "btn btn-white"
+              button.btn.btn-primary.submit.m-l-sm type="submit"  Continue

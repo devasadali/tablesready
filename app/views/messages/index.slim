@@ -1,0 +1,71 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2
+      strong Message Settings
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li.active
+        strong Messages
+  .col-lg-2
+
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Message Templates
+        .pull-right
+          = link_to new_message_template_path,remote: true,class: "btn btn-primary btn-sm" do
+            i class="fa fa-plus m-r-xs"
+            span Add Template
+      .ibox-content.message_templates
+        - if @message_templates.any?
+          .row.sortable
+            - @message_templates.each_slice(4).each do |templates|
+              - templates.each do |template|
+                = render partial: "message_templates/message_template",locals: {message_template: template}
+              .clear
+        - else
+          p No message template found.
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Send Marketing Messages in Bulk
+      .ibox-content
+        - recipent_count = my_restaurant.customers.marketing_messageable.count.to_i
+        - if recipent_count == 0
+          .row
+            h5.m-l-md.m-b-md 
+              | No customer found to send marketing sms. Add more bookings, to get customers
+        - else
+          .row
+            h5.m-l-md.m-b-md 
+              | Message will be sent to 
+              strong = "#{recipent_count} "
+              | people
+            p.m-l-md
+              | Your remaining marketing message credits:
+              strong = " #{current_user.remaining_messages_credits}"
+            p.alert.alert-success.msg_counter_notification.hide
+
+          br
+          - if current_user.can_send_marketing_messages?
+            .row
+              = simple_form_for :message,url: send_in_bulk_messages_path,html:{role: 'form',id: "bulk_message_form",class: "form-horizontal",method: :post} do |f|
+                .form-group
+                  label.col-sm-2.control-label Template
+                  .col-sm-6
+                    = f.text_area :template,rows: 5,class: "form-control",value: sample_marketing_template,onkeyup: "App.countChar(this)"
+                    p
+                      = "Length of message: "
+                      b.character-count #{sample_marketing_template.try(:length).to_i}
+                .form-group
+                  .col-sm-4.col-sm-offset-2
+                    button.btn.btn-primary.submit.m-l-sm type="submit"  Send
+          - else
+            p
+              strong You are out of limit of this month for sending bulk messages. Please upgrade your marketing addon
+              = link_to " here.","/pricing"
+
+.modal-section

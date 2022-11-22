@@ -1,0 +1,8 @@
+p
+  | Hello Admin,
+p
+  | #{@user.name} with email #{@user.email} has requested to extend his trial for #{ENV['TRIAL_EXTENDABLE_DAYS']} days.
+p
+  | Follow the following link to extend trial against the user with details given above.
+p
+  = link_to "Extend Trial",admin_users_url

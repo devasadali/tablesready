@@ -1,0 +1,13 @@
+$(".walk_ins").append("<%= j(render partial: 'walk_in',locals: {booking: @walk_in})%>");
+// set Booking Remaing Time
+elem_id = "booking_<%= @walk_in.id%>"
+new App.WalkIns().setBookingRemainingTime(elem_id);
+// timer for updating real time remaining
+var time_intervals = time_intervals || {}
+time_intervals[elem_id] = setInterval(function(){
+  new App.WalkIns().setBookingRemainingTime(elem_id);
+},60000);
+
+// trigger click to reset form
+$(".submit_btn").attr("disabled",false)
+$(".reset_form_btn").click();

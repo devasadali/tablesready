@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  template: MyText
+  sort_order: 1
+  restaurant_id: 1
+
+two:
+  name: MyString
+  template: MyText
+  sort_order: 1
+  restaurant_id: 1

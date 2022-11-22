@@ -1,0 +1,5 @@
+$(".modal-section").html("<%= j(render partial: 'walk_in_form_modal',locals: {walk_in: @walk_in})%>");
+$("#walk_in_form_modal").modal("show");
+// call update form validator
+new App.WalkIns().updateWalkinFormValidator();
+App.applyIntlInput($("#edit_walk_in_phone"));

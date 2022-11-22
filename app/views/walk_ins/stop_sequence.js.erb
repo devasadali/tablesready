@@ -1,0 +1,5 @@
+$(".walk_ins #booking_<%= @walk_in.id%>").replaceWith("<%= j(render partial: 'walk_in',locals: {booking: @walk_in})%>");
+$("#walk_in_form_modal").modal("hide");
+// set Booking Remaing Time
+elem_id = "booking_<%= @walk_in.id%>"
+new App.WalkIns().setBookingRemainingTime(elem_id);

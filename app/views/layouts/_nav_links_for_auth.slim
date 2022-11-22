@@ -1,0 +1,65 @@
+- if user_signed_in?
+  li.nav-header
+    .dropdown.profile-element
+      a.dropdown-toggle data-toggle="dropdown" href="#" 
+        span.clear
+          span.block.m-t-xs
+            strong.font-bold #{current_user.name.try(:titleize)}
+          span.text-muted.text-xs.block
+            | #{current_user.restaurant.try(:name).try(:titleize)}
+            b.caret
+      ul.dropdown-menu.animated.fadeInRight.m-t-xs
+        li
+          = link_to 'Signout', destroy_user_session_path, :method=>'delete'
+  li class="#{is_active_controller('dashboards')}"
+    = link_to root_path do
+      i.fa.fa-th-large
+      span.nav-label Dashboard
+  li class="#{is_active_controller('walk_ins')}"
+    = link_to walk_ins_path do
+      i.fa.fa-clock-o
+      span.nav-label Wait List
+  li class="#{is_active_controller('reservations')}"
+    = link_to reservations_path do
+      i.fa.fa-calendar
+      span.nav-label Reservation
+  li class="#{is_active_controller('messages')}"
+    = link_to messages_path do
+      i.fa.fa-envelope
+      span.nav-label Messages
+  li class="#{is_active_controller('settings')} #{is_active_controller('subscriptions')} #{is_active_action('pricing')}"
+    a href="index.html"
+      i.fa.fa-cog
+      span class="nav-label" Settings
+      span class="fa arrow"
+    ul class="nav nav-second-level collapse"
+      li class="#{is_active_action('profile')}"
+        = link_to "Profile",profile_settings_path
+      li class="#{is_active_controller('subscriptions')}"
+        = link_to "Subscriptions", subscriptions_path
+      li class="#{is_active_action('pricing')}"
+        = link_to "Pricing","/pricing"
+  li class="#{is_active_controller('reports')}"
+    = link_to reports_path do
+      i.fa.fa-file-text-o
+      span.nav-label Reports
+  li
+    = link_to "http://ready-text.com/training",target: "_blank" do
+      i.fa.fa-file-video-o
+      span.nav-label Training/Setup
+  li class="#{is_active_action('support')}"
+    = link_to "/support" do
+      i.fa.fa-envelope
+      span.nav-label Support
+- else
+  li
+    = link_to 'Signin', new_user_session_path
+  - if Devise.mappings[:user].registerable?
+    li
+      = link_to "Signup",new_user_registration_path
+  li
+    = link_to "Forgot Password",new_user_password_path
+  li
+    = link_to "Training/Setup","http://ready-text.com/training",target: "_blank"
+  li
+    = link_to "Support","/support"

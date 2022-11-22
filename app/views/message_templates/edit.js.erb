@@ -1,0 +1,3 @@
+$(".modal-section").html("<%= j(render partial: 'message_template_form_modal',locals: {message_template: @message_template})%>");
+$("#message_template_form_modal").modal("show");
+new App.Messages().messageTemplateFormValidator();

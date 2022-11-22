@@ -1,0 +1,77 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2 Reservations
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li.active
+        strong Reservation
+  .col-lg-2
+
+/ Add New Walkins
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 
+          | Add New Reservation
+          / removed import feature for now
+          /= link_to " Import from CSV ...",import_reservations_path
+      .ibox-content
+        .table-responsive.booking_form_table
+          = simple_form_for @reservation, html: { role: 'form',id: "reservation_form",class: "form-horizontal",remote: true,autocomplete: "off"} do |f|
+            = hidden_field_tag :authenticity_token, form_authenticity_token, id: :form_token
+            = f.hidden_field :restaurant_id
+            table.table.table-striped
+              tbody
+                tr
+                  td
+                    label Date
+                    = f.text_field :booking_date,class: "datepicker form-control"
+                  td
+                    label Time
+                    = f.text_field :booking_time,class: "timepicker form-control"
+                  td
+                    label Party Name
+                    = f.text_field :party_name,class: "form-control"
+                  td 
+                    label Size
+                    = f.number_field :size,min: 0,class: "form-control"
+                  td
+                    label Phone
+                    = f.text_field :phone, class: "form-control",id: "reservation_phone", type: "tel"
+                  td
+                    label Notes
+                    = f.text_field :notes, class:"form-control"
+                  td
+                    = button_tag class: "btn btn-primary btn-xl m-r-sm m-t-md submit_btn" do
+                      i.fa.fa-plus.m-r-xs
+                      span Add
+                  td
+                    = link_to "javascript:void(0);",class: "btn btn-default btn-xl m-t-md reset_form_btn",form_id: "walk_in_form" do
+                      i.fa.fa-repeat.m-r-xs
+                      span Reset
+                    
+/ walkin subscriptions
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 
+          | Upcoming Reservations
+          span #{@reservations.size > 0 ? " (#{@reservations.size})" : ''}
+      .ibox-content
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th Time
+                th Guest
+                th Size
+                th Notes
+                th Actions
+            tbody.reservations
+              - @reservations.each do |booking|
+                = render partial: "reservation",locals: {booking: booking}
+
+.modal-section

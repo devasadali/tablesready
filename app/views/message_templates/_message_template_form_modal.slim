@@ -1,0 +1,28 @@
+#message_template_form_modal.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content.animated.fadeIn
+      .modal-header
+        button.close data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+        h4.modal-title Message Template
+      = simple_form_for message_template, html: { role: 'form',id: "message_template_form",class: "form-horizontal",remote: true,autocomplete: "off"} do |f|
+        = f.hidden_field :restaurant_id
+        .modal-body
+          .form-group
+            label.col-sm-3.control-label Name
+            .col-sm-9
+              = f.text_field :name,class: 'form-control'
+          .form-group
+            label.col-sm-3.control-label Delay(in minutes)
+            .col-sm-9
+              = f.number_field :next_delay,class: 'form-control',min: 1
+          .form-group
+            label.col-sm-3.control-label Template
+            .col-sm-9
+              = f.text_area :template, rows: 5, maxlength: 160, class: 'form-control',onkeyup: "App.countChar(this)"
+              p
+                = "Length of message: "
+                b.character-count #{f.object.template.try(:length).to_i}
+        .modal-footer
+          button.btn.btn-white data-dismiss="modal" type="button"  Cancel
+          button.btn.btn-primary  type="submit"  #{message_template.new_record? ? 'Add' : 'Update'}

@@ -1,0 +1,25 @@
+.middle-box.loginscreen.animated.fadeInDown.text-center
+  div
+    div
+      h1.logo-name RT
+    h3 Sign in 
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form',id: "signin_form",class: "m-t"}) do |f|
+      = render "layouts/messages"
+      .form-group.text-left
+        = f.email_field :email,placeholder: "Email", :autofocus => true, class: 'form-control'
+      .form-group.text-left
+        = f.password_field :password,placeholder: "Password",class: 'form-control'
+        - if devise_mapping.rememberable?
+          .checkbox style="width:150px"
+            label
+              = f.check_box :remember_me
+              | Remember me
+      = f.submit 'Sign in', :class => 'btn btn-primary block full-width m-b'
+      - if devise_mapping.recoverable?
+        = link_to new_password_path(resource_name), class: 'pull-right1' do
+          small Forgot Password?
+      - if devise_mapping.registerable?
+        p.text-muted.text-center
+          small Do not have an account?
+        = link_to new_registration_path(resource_name), class: 'btn btn-sm btn-white btn-block' do
+          small Create an account

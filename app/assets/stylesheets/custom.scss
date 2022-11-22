@@ -1,0 +1,37 @@
+.signup-page{
+  h1{
+    font-size: 60px;
+    letter-spacing: 0px;
+  }
+  .alert {
+    color: #ed5565
+  }
+  #g-recaptcha-response {
+    display: block !important;
+    position: absolute;
+    margin: -78px 0 0 0 !important;
+    width: 302px !important;
+    height: 76px !important;
+    z-index: -999999;
+    opacity: 0;
+  }
+}
+.simple_form{
+  .auto-noshow{
+    width: 30px;
+  }
+}
+
+.impersonate-notification {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.message_template.not_approved li.active {
+  background-color: #b4b4b4;
+  border-color: #b4b4b4;
+}

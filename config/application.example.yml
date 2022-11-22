@@ -1,0 +1,42 @@
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978f7dd7f9a1117
+# pusher_secret: abdc3b896a0ffb85d373
+# stripe_api_key: sk_test_2J0l093xOyW72XUYJHE4Dv2r
+# stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
+#
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+ADMIN_USERNAME: superadmin
+ADMIN_EMAIL: superadmin@test.com
+ADMIN_PASSWORD: "321321321"
+GMAIL_USERNAME: test@gmail.com
+GMAIL_PASSWORD: test123
+AWS_ACCESS_KEY: test123
+AWS_SECRET_KEY: dfsfsdf/8ICFtGr63/9
+AWS_BUCKET_NAME: test_development
+AUTHORIZATION: "sdfsdfsdf"
+STRIPE_PUBLISHABLE_KEY: "pk_test_oZFibScUyN5lSHe"
+STRIPE_SECRET_KEY: "sk_test_MbXsFCHEpPEBOHyomi"
+TRIAL_PERIOD_DAYS: "10"
+TRIAL_EXTENDABLE_DAYS: "10"
+DOMAIN_NAME: localhost:3000
+SECRET_KEY_BASE: 2bef2ea6bec1d20c2099a77e0f4e73aa818124eaab83caf9a102fabedad1f01333f61aaf6e0eb4dd6caab966250a44bc183dae21b9ff19282a19bb40f03054a9
+CLICKATELL_ONE_WAY_KEY: sdfdsfdssssssssss
+CLICKATELL_TWO_WAY_KEY: sdfdsfdssssssssss
+CLICKATELL_FROM_NUMBER: "+9232343234343"
+HELLO_EMAIL: hello@test.com
+DEFAULT_TIME_ZONE: "Indiana (East)" # Default set to -05:00
+SENDGRID_USERNAME: "sendgrid-user"
+SENDGRID_PASSWORD: "password"
+SENDGRID_ADDRESS: "smtp.sendgrid.net"
+SENDGRID_API_KEY: sendgrid_api_key
+REPLY_HALT_TEXT: "reply HALT to opt-out"
+MAILCHIMP_API_KEY: "mailchimp api key"
+MAILCHIMP_LIST_ID: "mailchimp-list-id"
+MAILCHIMP_INTEREST_CATEGORY_ID: "mailchimp-category-id"
+RECAPTCHA_SITE_KEY: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+RECAPTCHA_SECRET_KEY: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+

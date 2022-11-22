@@ -1,0 +1,53 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    h2
+      strong Plan and Addons
+    ol.breadcrumb
+      li
+        = link_to "Home",root_path
+      li
+        = link_to "Subscriptions",subscriptions_path
+      li.active
+        strong Pricing
+  .col-lg-2
+
+/ this is hidden form used to update/create subscription
+= render partial: "shared/subscription_form"
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Wait List and Reservation Plan
+      .ibox-content
+        .row
+          - @walkin_plans.each do |plan|
+            .col-lg-3.plan-content plan_id="#{plan.id}"
+              = render partial: "shared/plan",locals: {plan: plan}
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Marketing Addons
+      .ibox-content
+        .row
+          ul
+            li
+              h5
+                | You can use marketing texts to promote specials, appetizers, two for ones, and use for marketing for slow times to increase your business.
+            li
+              h5
+                | We suggest that you send a marketing text to your text list once per week. However many subscribers you have, you should purchase 4 times your list amount for best results and send once per week.
+          p.m-l-md
+            h5.m-l-md.m-b-md
+              | So, if you have 500 people on your text list, then you should purchase 2000 marketing credits. These credits reset every 30 days, so whatever plan you subscribe to allows you UP TO “x” marketing texts per 30 day billing cycle. This billing cycle resets every 30 days and there is no carry over of marketing credits from billing cycle to another. If you need to increase your amount during the billing cycle, you would move to the next level and be billed at that time and this new “upgrade” date would be your new monthly billing cycle.
+          p.m-l-md.m-b-md
+            span
+              b Your Customer Count: #{current_user.try(:restaurant).try(:customers_count).to_i}
+          - @marketing_plans.each_slice(6).each do |plans|
+            .row
+              - plans.each do |plan|
+                .col-lg-2.plan-content plan_id="#{plan.id}"
+                  = render partial: "shared/plan",locals: {plan: plan}
+
+= render "shared/walkin_subscribe_modal"
+.modal-section

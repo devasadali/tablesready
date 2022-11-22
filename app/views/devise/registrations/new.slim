@@ -1,0 +1,96 @@
+.middle-box.loginscreen.animated.fadeInDown.text-center
+  div.signup-page
+    div
+      h1.logo-name Text Your Waitlist
+    h3 Set Up Your Free Trial Account
+    - flash.each do |type, msg|
+      div.alert
+        = msg
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: 'form',id: "signup_form",class: "m-t"}) do |f|
+      - resource.time_zone = ENV['DEFAULT_TIME_ZONE']
+      - if params[:plan]
+        = hidden_field_tag :plan,params[:plan]
+        = f.hidden_field :can_avail_trial,value: false
+        = f.hidden_field :in_trial,value: false
+        = f.hidden_field :can_send_abandoment_email,value: true
+      = f.hidden_field :role,value:'restaurant'
+      .text-left.text-danger
+        = devise_error_messages!
+      .form-group.text-left
+        = text_field_tag :restaurant_name,nil,placeholder: "Business Name",autofocus: true,class: "form-control"
+      .form-group.text-left
+        = f.select :country_id, Country.all.collect{|c| [c.name,c.id]},{},class: "form-control"
+      .form-group.text-left
+        label type="button" class="" data-toggle="tooltip" data-placement="auto right" data-content="popup" data-original-title="tooltip" title="Select proper TimeZone to display booking timings in correct timezone"
+          | TimeZone (?)
+        = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones,{},{class: "form-control",id: "current_time_zone"}
+      .form-group.text-left
+        = f.text_field :name,class: 'form-control',placeholder: "Name"
+      /.form-group.text-left
+        = f.text_field :phone,class: 'form-control',placeholder: "Phone"
+      .form-group.text-left
+        = f.email_field :email, class: 'form-control',placeholder: "Email"
+      .form-group.text-left
+        = f.password_field :password, class: 'form-control',placeholder: "Password"
+      .form-group.text-left
+        = f.password_field :password_confirmation, class: 'form-control',placeholder: "Password Confirmation"
+      .form-group.text-left
+        = recaptcha_tags
+      br
+      div
+        = f.submit 'Access My Free Account', :class => 'btn btn-primary block full-width m-b'
+        p.text-muted.text-center
+          small Have already an account?
+        = link_to new_user_session_path, class: 'btn btn-sm btn-white btn-block' do
+          small Sign In
+
+  javascript:
+    /*BEGIN GADWP v5.1.1.3 Universal Analytics - https://deconf.com/google-analytics-dashboard-wordpress*/
+    (function(i,s,o,g,r,a,m){
+      i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)
+      },i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })
+    (window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-107497542-1', 'auto');
+    ga('send', 'pageview');
+    /* END GADWP Universal Analytics*/
+
+
+      
+    /*Facebook Pixel Code*/
+    !function(f,b,e,v,n,t,s) {
+      if(f.fbq)return;n=f.fbq=function(){
+        n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)
+      }; 
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; 
+      n.queue=[];t=b.createElement(e);t.async=!0; 
+      t.src=v;s=b.getElementsByTagName(e)[0]; 
+      s.parentNode.insertBefore(t,s)
+    }
+    (window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '130550950979380');
+    fbq('track', 'PageView');
+  
+  noscript
+    img height="1" src="https://www.facebook.com/tr?id=130550950979380&ev=PageView&noscript=1" style="display:none" width="1" /
+
+  javascript:  
+    fbq('track', 'InitiateCheckout');
+
+  /! Global site tag (gtag.js) - Google Analytics
+  script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-107497542-1" 
+  javascript:
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-107497542-1', {
+    
+        'linker': {
+      
+          'domains': ['ready-text.com', 'app.ready-text.com']
+        }
+      
+      });

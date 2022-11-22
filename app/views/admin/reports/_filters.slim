@@ -1,0 +1,15 @@
+- if params[:reports]
+  - from = params[:reports][:from]
+  - to = params[:reports][:to]
+- else
+  - from = Date.today - 1.month
+  - to  = Date.today
+= form_for :reports,url: "/admin/reports",method: :get,html: {class: "filter_form",id: "reports_filter_form"} do |f|
+  .date_range.input.optional.stringish.filter_form_field.filter_date_range
+    label.label SMS SENT AT
+    = f.text_field :from,value: from,class: "datepicker"
+    span.seperator -
+    = f.text_field :to,value: to,class: "datepicker"    
+  .buttons
+    input data-disable-with="Filter" name="commit" type="submit" value="Filter"
+    a class="clear_filters_btn" href="/admin/reports" Clear Filters

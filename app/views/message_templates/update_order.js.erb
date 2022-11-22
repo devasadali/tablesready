@@ -1,0 +1,3 @@
+<% @updated_templates.each do |template| %>
+  $(".message_templates #message_template_<%= template.id%>").replaceWith("<%= j(render partial: 'message_template',locals: {message_template: template})%>");
+<% end %>

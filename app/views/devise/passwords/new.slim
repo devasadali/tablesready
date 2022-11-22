@@ -1,0 +1,12 @@
+.middle-box.loginscreen.animated.fadeInDown.text-center
+  div
+    div
+      h1.logo-name RT
+    h3 Forgot your password?
+    p We'll send password reset instructions.
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form',id: "new_password_form",class: "m-t"}) do |f|
+      .text-left.text-danger
+        = devise_error_messages!
+      .form-group.text-left
+        = f.email_field :email,placeholder: "Email", :autofocus => true, class: 'form-control'
+      = f.submit 'Reset Password', :class => 'btn btn-primary block full-width m-b'
